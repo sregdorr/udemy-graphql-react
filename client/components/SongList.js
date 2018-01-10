@@ -9,7 +9,6 @@ import deleteSong from '../mutations/deleteSong';
 
 class SongList extends Component {
   onDeleteClick(id) {
-    console.log(this.props);
     this.props.mutate({
       variables: { id }
     }).then(() => this.props.data.refetch());
@@ -17,14 +16,17 @@ class SongList extends Component {
 
   renderSongs() {
     const { songs } = this.props.data;
+
     return this.props.data.songs.map(song => {
       const { id, title } = song;
       return (
-        <li key={id} className={'collection-item'}>
-          {title}
+        <li
+          key={id}
+          className={'collection-item'}
+        >
+          <Link to={`/songs/${id}`}>{title}</Link>
           <i
             className='material-icons'
-            onClick={() => this.onDeleteClick(id)}
           >
             delete
           </i>
